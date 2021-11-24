@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Preview</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+  <style type="text/css">
+    body {
+       margin: 0;
+       padding: 0;
+    }
+    html, body, #map{
+       width: 100%;
+       height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    var map = L.map('map').setView([-2.2525855696201324, 137.02862492322922], 15.0);
+
+    map.createPane('imagePane');
+    map.getPane('imagePane').style.zIndex = 221;
+    var fuTileImagery = L.tileLayer('https://anshori.github.io/tile-fu-mamberamoraya/{z}/{x}/{y}.png', {
+	  // var fuTileImagery = L.tileLayer('http://localhost/tile/mamberamoraya/bariwaro_barapasi_marikai/{z}/{x}/{y}.png', {
+      pane: 'imagePane',
+      minZoom: 10,
+      maxZoom: 20,
+      tms: false,
+      attribution: 'unsorry@2021'
+    });
+
+    var ESRI_worldimagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}');
+
+    var basemapgrup = L.featureGroup([fuTileImagery, ESRI_worldimagery])
+    basemapgrup.addTo(map);
+  </script>
+</body>
+</html>
